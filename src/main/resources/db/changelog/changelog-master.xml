@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="PMSVFULL">
+		<createTable tableName="Cliente">
+			<column name="id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nome" type="varchar(100)"></column>
+		</createTable>
+		<createTable tableName="Produto">
+			<column name="id" type="int"></column>
+			<column name="descricao" type="varchar(100)"></column>
+			<column name="precoUnitario" type="numeric(20,2)"></column>
+		</createTable>
+		<createTable tableName="Pedido">
+			<column name="id" type="int"></column>
+			<column name="clienteId" type="int"></column>
+			<column name="dataPedido" type="java.sql.Types.TIMESTAMP" ></column>
+			<column name="total" type="numeric(20,2)"></column>
+		</createTable>
+       <createTable tableName="ItemPedido">
+		   <column name="id" type="int"></column>
+		   <column name="pedidoId" type="int" ></column>
+		   <column name="produtoId" type="int"></column>
+		   <column name="quantidade" type="int"></column>		   
+	   </createTable>
+	</changeSet>
+
+	<changeSet id="2" author="PMSVFULL">
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Cliente"/>
+	</changeSet>	
+
+	<changeSet id="3" author="PMSVFULL">
+		<addForeignKeyConstraint  
+			baseColumnNames="clienteId"  
+            baseTableName="Pedido"           
+            constraintName="fkClienteId"  
+            onDelete="CASCADE"  
+            onUpdate="NO ACTION"  
+            referencedColumnNames="id"           
+            referencedTableName="Cliente" />
+   	</changeSet>
+   	<changeSet id="4" author="PMSVFULL" >
+	    <addPrimaryKey tableName="Produto" columnNames="id" constraintName="pkProduto"/>
+	</changeSet>
+	<changeSet id="5" author="PMSVFULL" >
+	    <addPrimaryKey tableName="Pedido" columnNames="id" constraintName="pkPedido"/>
+	</changeSet>
+	<changeSet id="6" author="PMSVFULL">
+		 <addForeignKeyConstraint  
+	   		baseColumnNames="pedidoId"  
+            baseTableName="ItemPedido"           
+            constraintName="fkPedidoId"  
+            onDelete="CASCADE"  
+            onUpdate="NO ACTION"  
+            referencedColumnNames="id"           
+            referencedTableName="Pedido" /> 
+    </changeSet>
+    
+    <changeSet id="7" author="PMSVFULL">
+        <addForeignKeyConstraint  
+        	baseColumnNames="produtoId"  
+            baseTableName="ItemPedido"           
+            constraintName="fkProdutoId"  
+            onDelete="CASCADE"  
+            onUpdate="NO ACTION"  
+            referencedColumnNames="id"           
+            referencedTableName="Produto" /> 
+    </changeSet>   
+	
+</databaseChangeLog>
