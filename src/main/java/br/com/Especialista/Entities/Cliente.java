@@ -23,6 +23,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Size(max=100)
 	private String nome;
 

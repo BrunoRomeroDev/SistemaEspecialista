@@ -19,8 +19,10 @@ public class Produto {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Integer id;
+	
 	@Column(name="descricao")
 	private String descricao;
+	
 	@Column(name="precoUnitario")
 	private BigDecimal preco;
 	

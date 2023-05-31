@@ -2,6 +2,7 @@ package br.com.Especialista.Entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -29,6 +31,9 @@ public class Pedido {
 
 	@Column(name="total",length=100,precision=2)
 	private BigDecimal total;
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itens;
 	
 
 }
