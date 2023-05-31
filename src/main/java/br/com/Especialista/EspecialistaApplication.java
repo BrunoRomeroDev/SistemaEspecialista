@@ -21,38 +21,20 @@ public class EspecialistaApplication {
 	@Bean
 	public CommandLineRunner init(@Autowired Clientes clientes) {
 		return args -> {
-			System.out.println("Salvando clientes");
-			clientes.save(new Cliente("Joao"));
-			clientes.save(new Cliente("Jose"));
-			List<Cliente>  todosClientes = clientes.findAll();
-			todosClientes.forEach(System.out::println);
+//			System.out.println("Salvando clientes");
+//			clientes.save(new Cliente("Joao"));
+//			clientes.save(new Cliente("Jose"));
+//			List<Cliente>  todosClientes = clientes.findAll();
+//			todosClientes.forEach(System.out::println);
+//			
+//			System.out.println("Busca por @query");
+//			List<Cliente> cli = clientes.encontrarPorNome("%Joao%");
+//			System.out.println(cli);
+//			System.out.println("Busca por native query");
+//			List<Cliente> cli2 = clientes.encontrarPorNomeNative("Jose");
+//			System.out.println(cli2);
 			
-			System.out.println("Atualizando clientes");
-			todosClientes.forEach(c -> { 
-				c.setNome(c.getNome()+"atualizado.");
-				clientes.save(c);
-				});
 			
-			todosClientes = clientes.findAll();
-			todosClientes.forEach(System.out::println);
-			
-			System.out.println("Buscando clientes");
-			clientes.findByNomeLike("Romer").forEach(System.out::println);
-			
-			System.out.println("deletando  clientes");
-			clientes.findAll().forEach(c ->{
-				clientes.delete(c);
-			});
-			
-			todosClientes = clientes.findAll();
-			if(todosClientes.isEmpty()) {
-				System.out.println("Nenhum Cliente Encontrado.");
-				System.out.println("Adicionando novos.");
-				clientes.save(new Cliente("Joaquim"));
-				clientes.save(new Cliente("Manuel"));
-			}else {
-				todosClientes.forEach(System.out::println);
-			}
 			
 		};
 	}

@@ -19,12 +19,15 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@ManyToOne
 	@JoinColumn(name="clienteId",insertable=false, updatable=false)
-	private Cliente cliente;
+	private Cliente clientes;
+	
 	@Column(name="dataPedido")
 	private LocalDate dataPedido;
-	@Column(name="total")
+
+	@Column(name="total",length=100,precision=2)
 	private BigDecimal total;
 	
 
