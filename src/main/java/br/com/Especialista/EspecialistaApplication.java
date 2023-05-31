@@ -46,7 +46,10 @@ public class EspecialistaApplication {
 			
 			todosClientes = clientes.obterTodos();
 			if(todosClientes.isEmpty()) {
-				System.out.println("Nenhum CLiente Encontrado");
+				System.out.println("Nenhum Cliente Encontrado.");
+				System.out.println("Adicionando novos.");
+				clientes.salvar(new Cliente("Joaquim"));
+				clientes.salvar(new Cliente("Manuel"));
 			}else {
 				todosClientes.forEach(System.out::println);
 			}
