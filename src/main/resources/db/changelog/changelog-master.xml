@@ -30,8 +30,8 @@
 
 	<changeSet id="2" author="PMSVFULL">
 		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Cliente"/>
-	</changeSet>	
-
+	</changeSet>
+	
 	<changeSet id="3" author="PMSVFULL">
 		<addForeignKeyConstraint  
 			baseColumnNames="clienteId"  
@@ -42,12 +42,20 @@
             referencedColumnNames="id"           
             referencedTableName="Cliente" />
    	</changeSet>
+   	
    	<changeSet id="4" author="PMSVFULL" >
 	    <addPrimaryKey tableName="Produto" columnNames="id" constraintName="pkProduto"/>
 	</changeSet>
+	
 	<changeSet id="5" author="PMSVFULL" >
 	    <addPrimaryKey tableName="Pedido" columnNames="id" constraintName="pkPedido"/>
 	</changeSet>
+	
+	<changeSet id="AutoincrementPedidoProduto" author="PMSVFULL">
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Produto"/>
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Pedido"/>
+	</changeSet>
+	
 	<changeSet id="6" author="PMSVFULL">
 		 <addForeignKeyConstraint  
 	   		baseColumnNames="pedidoId"  
@@ -69,5 +77,6 @@
             referencedColumnNames="id"           
             referencedTableName="Produto" /> 
     </changeSet>   
+
 	
 </databaseChangeLog>

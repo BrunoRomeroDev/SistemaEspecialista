@@ -3,6 +3,7 @@ package br.com.Especialista.Entities;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Cliente {
 		this.nome = nome;
 	}
 	
-	@OneToMany(mappedBy = "clientes")
+	@OneToMany(mappedBy = "clientes",fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos;
 
 }

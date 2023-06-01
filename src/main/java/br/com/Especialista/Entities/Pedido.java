@@ -13,9 +13,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
+@ToString
 public class Pedido {
 	
 	@Id
@@ -23,13 +25,13 @@ public class Pedido {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="clienteId",insertable=false, updatable=false)
+	@JoinColumn(name="clienteId")
 	private Cliente clientes;
 	
 	@Column(name="dataPedido")
 	private LocalDate dataPedido;
 
-	@Column(name="total",length=100,precision=2)
+	@Column(name="total",length=100,precision=20)
 	private BigDecimal total;
 	
 	@OneToMany(mappedBy = "pedido")
