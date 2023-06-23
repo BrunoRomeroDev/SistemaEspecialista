@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.Especialista.Entities.Cliente;
 import br.com.Especialista.Entities.Pedido;
+import io.swagger.v3.oas.annotations.Hidden;
 
-public interface Pedidos extends JpaRepository<Pedido, Integer> {
+@Hidden
+public interface PedidosRepository extends JpaRepository<Pedido, Integer> {
 	
 	List<Pedido> findByClientes(Cliente cliente);
 

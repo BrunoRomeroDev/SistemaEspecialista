@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.Especialista.Entities.Cliente;
+import io.swagger.v3.oas.annotations.Hidden;
 
-
-public interface Clientes extends JpaRepository<Cliente,Integer>{
+@Hidden
+public interface ClientesRepository extends JpaRepository<Cliente,Integer>{
 
 	Iterable<Cliente> findByNomeLike(String string);
 	
