@@ -27,11 +27,9 @@
 		   <column name="quantidade" type="int"></column>		   
 	   </createTable>
 	</changeSet>
-
 	<changeSet id="2" author="PMSVFULL">
 		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Cliente"/>
 	</changeSet>
-	
 	<changeSet id="3" author="PMSVFULL">
 		<addForeignKeyConstraint  
 			baseColumnNames="clienteId"  
@@ -42,20 +40,16 @@
             referencedColumnNames="id"           
             referencedTableName="Cliente" />
    	</changeSet>
-   	
    	<changeSet id="4" author="PMSVFULL" >
 	    <addPrimaryKey tableName="Produto" columnNames="id" constraintName="pkProduto"/>
 	</changeSet>
-	
 	<changeSet id="5" author="PMSVFULL" >
 	    <addPrimaryKey tableName="Pedido" columnNames="id" constraintName="pkPedido"/>
 	</changeSet>
-	
 	<changeSet id="AutoincrementPedidoProduto" author="PMSVFULL">
 		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Produto"/>
 		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Pedido"/>
 	</changeSet>
-	
 	<changeSet id="6" author="PMSVFULL">
 		 <addForeignKeyConstraint  
 	   		baseColumnNames="pedidoId"  
@@ -66,7 +60,6 @@
             referencedColumnNames="id"           
             referencedTableName="Pedido" /> 
     </changeSet>
-    
     <changeSet id="7" author="PMSVFULL">
         <addForeignKeyConstraint  
         	baseColumnNames="produtoId"  
@@ -76,7 +69,29 @@
             onUpdate="NO ACTION"  
             referencedColumnNames="id"           
             referencedTableName="Produto" /> 
-    </changeSet>   
-
+    </changeSet>  
+    <changeSet id="8" author="Bruno Romero">
+		<createTable tableName="Vendedor">
+		   <column name="id" type="int">
+			   <constraints primaryKey="true" />
+		   </column>
+		   <column name="Nome" type="varchar(100)"></column>   
+	   </createTable>
+	</changeSet> 
+	<changeSet author="Bruno Romero" id="Coluna em pedidos"> 
+	    <addColumn tableName="Pedido">
+	        <column name="VendedorId"  type="int"/>  
+	    </addColumn>  
+	</changeSet>
 	
+	<changeSet  author="Bruno Romero"  id="ForeignKey Vendedor">  
+    <addForeignKeyConstraint  
+    		baseColumnNames="VendedorId"  
+            baseTableName="Pedido"  
+            constraintName="fk_Vendedor"  
+            onDelete="CASCADE"  
+            onUpdate="NO ACTION"  
+            referencedColumnNames="id"  
+            referencedTableName="Vendedor"/>  
+</changeSet>
 </databaseChangeLog>
