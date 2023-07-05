@@ -2,6 +2,7 @@ package br.com.Especialista.Entities;
 
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +31,14 @@ public class Cliente {
 	
 	@OneToMany(mappedBy = "clientes",fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos;
+	
+	@Column(name="endereco")
+	private String endereco;
+	
+	@Size(max = 11)
+	@Column(name="cpf")
+	private String CPF;
+	
 
 	public Cliente(String nome) {
 		this.nome = nome;

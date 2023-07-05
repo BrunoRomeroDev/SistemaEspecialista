@@ -45,8 +45,8 @@ public class ProdutoController {
 	@Operation(summary="Inserir cadastro no body")
 	public ResponseEntity<Produto> novoprodutoBody(@RequestBody Produto prod ) {
 		if(produtosrepository.save(prod) == null) 
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(prod );
-		return ResponseEntity.status(HttpStatus.CREATED).body(null) ;
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null );
+		return ResponseEntity.status(HttpStatus.CREATED).body(prod) ;
 	}
 	
 	@PutMapping("/")

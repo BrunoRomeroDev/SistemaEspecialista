@@ -1,8 +1,18 @@
 package br.com.Especialista.Services;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import br.com.Especialista.Entities.Vendedor;
+
 public interface InterfaceVendedor {
+	
+	Vendedor cadastrarVendedor(Vendedor vendedor);
+
+	List<Vendedor> buscatodosvendedores();
+
+	Vendedor atualizaVendedor(Vendedor vendedor);
+
+	void deletavendedor(Integer id);
+	
 
 }

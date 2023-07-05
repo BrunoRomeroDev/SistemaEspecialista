@@ -70,7 +70,7 @@
             referencedColumnNames="id"           
             referencedTableName="Produto" /> 
     </changeSet>  
-    <changeSet id="8" author="Bruno Romero">
+    <changeSet id="CreateTableVendedor" author="Bruno Romero">
 		<createTable tableName="Vendedor">
 		   <column name="id" type="int">
 			   <constraints primaryKey="true" />
@@ -78,13 +78,16 @@
 		   <column name="Nome" type="varchar(100)"></column>   
 	   </createTable>
 	</changeSet> 
+	<changeSet id="AutoincrementVendedor" author="PMSVFULL">
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Vendedor"/>
+	</changeSet>
 	<changeSet author="Bruno Romero" id="Coluna em pedidos"> 
 	    <addColumn tableName="Pedido">
 	        <column name="VendedorId"  type="int"/>  
 	    </addColumn>  
 	</changeSet>
 	
-	<changeSet  author="Bruno Romero"  id="ForeignKey Vendedor">  
+	<changeSet  author="Bruno Romero"  id="ForeignKVendedor">  
     <addForeignKeyConstraint  
     		baseColumnNames="VendedorId"  
             baseTableName="Pedido"  
@@ -94,4 +97,23 @@
             referencedColumnNames="id"  
             referencedTableName="Vendedor"/>  
 </changeSet>
+
+	<changeSet author="bruno romero" id="colunas clientes"> 
+	    <addColumn tableName="Cliente">
+	        <column 
+	        	name="endereco" 
+	            type="varchar(255)"/> 
+	        <column 
+	            name="cpf"  
+	            type="int">  
+	        </column>  
+	   </addColumn> 
+	</changeSet>
+	<changeSet id="ChavePrimaryItemPedido" author="PMSVFULL" >
+	    <addPrimaryKey tableName="ItemPedido" columnNames="id" constraintName="pkItemPedido"/>
+	</changeSet>
+		<changeSet id="AutoincrementItemPedido" author="PMSVFULL">		
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="ItemPedido"/>
+	</changeSet>
+
 </databaseChangeLog>
