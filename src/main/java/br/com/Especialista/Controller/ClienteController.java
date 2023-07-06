@@ -36,6 +36,7 @@ public class ClienteController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping("/buscaexample")
 	public ResponseEntity buscarClienteExample(Cliente filtro) {
 		ExampleMatcher matcher = ExampleMatcher
@@ -61,6 +62,7 @@ public class ClienteController {
 		return ResponseEntity.status(HttpStatus.OK).body(cli);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@PutMapping("/alterar/{id}")
 	public ResponseEntity alterarcliente(@PathVariable Integer id,@RequestBody Cliente cli){
 		

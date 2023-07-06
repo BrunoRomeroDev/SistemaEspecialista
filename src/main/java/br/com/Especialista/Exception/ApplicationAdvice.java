@@ -24,4 +24,10 @@ public class ApplicationAdvice {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ed);
 	}
 	
+	@ExceptionHandler(PedidoNaoEncontradoException.class)
+	public ResponseEntity<ExceptionDefault> pedidoNaoEncontrado(){
+		ExceptionDefault ed = new ExceptionDefault("Pedido não Encontrado",OffsetDateTime.now());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ed);
+	}
+	
 }

@@ -1,6 +1,9 @@
 package br.com.Especialista.Controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,5 +66,20 @@ public class ProdutoController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Item Excluido!!");
 	}
-
+	
+	@PostMapping("/produtos")
+	@Operation(summary="Inserir cadastro via variavel no path")
+	public List<Produto> novoprodutos(@RequestBody Produto...produto) {
+		List<Produto> prods = Arrays.asList(produto);
+	
+	return  prods
+			.stream()
+			.map(p ->{
+					produtosrepository.save(p);
+			 		return  p;})
+			.collect(ArrayList::new, ArrayList::add,
+                ArrayList::addAll);
+	}
+		
+	
 }

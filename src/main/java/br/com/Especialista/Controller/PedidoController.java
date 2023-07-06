@@ -8,9 +8,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +25,9 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.Especialista.Entities.Cliente;
 import br.com.Especialista.Entities.Pedido;
 import br.com.Especialista.Entities.PedidoDTO;
+import br.com.Especialista.Entities.PedidoDTOVendedor;
+import br.com.Especialista.Entities.PedidoStatusDTO;
+import br.com.Especialista.Entities.StatusPedido;
 import br.com.Especialista.Repositories.PedidosRepository;
 import br.com.Especialista.Services.PedidoService;
 
@@ -52,10 +57,26 @@ public class PedidoController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	@GetMapping("/buscaid/{id}")
+	public ResponseEntity buscaPedidoId(@PathVariable Integer id){
+		return pedidoservice.buscaPedidoId(id).map( pedido -> {
+			pedidoservice.buscaPedidoId(pedido.getId());
+			return ResponseEntity.status(HttpStatus.OK).body(pedido);
+		}).orElseThrow(()-> new ResponseStatusException(NOT_FOUND,"Pedido não encontrado"));
+	}
+	
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public Pedido save(@RequestBody PedidoDTO pedido) { 
-		return pedidoservice.salvarpedido(pedido);
+	public ResponseEntity<Pedido> save(@RequestBody PedidoDTO pedido) { 
+		return ResponseEntity.ok().body(pedidoservice.salvarpedido(pedido));
+		
+	}
+	
+	@PostMapping("/full")
+	@ResponseStatus(CREATED)
+	public Pedido saveFull(@RequestBody PedidoDTOVendedor pedido) { 
+		return pedidoservice.salvarpedidoFull(pedido);
 		
 	}
 	@PutMapping("{id}")
@@ -81,6 +102,16 @@ public class PedidoController {
 				return Void.TYPE;
 			}).orElseThrow( () -> 
 			new ResponseStatusException(NOT_FOUND,"Produto não encontrado."));
+			
+		}
+		@PatchMapping("{id}")
+	
+		public void updateStatus(@RequestBody PedidoStatusDTO pdto,
+								 @PathVariable Integer id) {
+			
+			String novoStatus = pdto.getStatus();
+			pedidoservice.updateStatus(id,StatusPedido.valueOf(novoStatus));
+			
 			
 		}
 		

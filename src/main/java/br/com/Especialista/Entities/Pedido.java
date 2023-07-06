@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,9 +38,17 @@ public class Pedido {
 	@Column(name="total",length=100,precision=20)
 	private BigDecimal total;
 	
+	@ManyToOne
+	@JoinColumn(name="VendedorId")
+	private Vendedor vendedor;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="StatusPedido")
+	private StatusPedido statuspedido;
 	
 
 }

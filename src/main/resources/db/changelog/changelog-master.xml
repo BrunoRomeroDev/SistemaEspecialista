@@ -115,5 +115,13 @@
 		<changeSet id="AutoincrementItemPedido" author="PMSVFULL">		
 		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="ItemPedido"/>
 	</changeSet>
+	
+	<changeSet author="Bruno Romero" id="Status Pedido"> 
+	    <addColumn tableName="Pedido">
+	        <column 
+	        	name="StatusPedido" 
+	            type="varchar(255)"/> 
+	   </addColumn> 
+	</changeSet>
 
 </databaseChangeLog>
