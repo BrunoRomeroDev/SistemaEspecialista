@@ -123,5 +123,15 @@
 	            type="varchar(255)"/> 
 	   </addColumn> 
 	</changeSet>
+	<changeSet id="Tabela Usuario" author="Romero">
+		<createTable tableName="Usuario">
+			<column name="id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="login" type="varchar(100)"></column>
+			<column name="senha" type="varchar(100)"></column>
+			<column name="admin" type="boolean"></column>
+		</createTable>
+	</changeSet>
 
 </databaseChangeLog>

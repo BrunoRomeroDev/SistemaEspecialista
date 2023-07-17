@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.Especialista.Entities.Produto;
+import br.com.Especialista.Entities.ProdutoDTO;
 import br.com.Especialista.Repositories.ProdutosRepository;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -46,14 +48,14 @@ public class ProdutoController {
 	
 	@PostMapping("/inserir/")
 	@Operation(summary="Inserir cadastro no body")
-	public ResponseEntity<Produto> novoprodutoBody(@RequestBody Produto prod ) {
+	public ResponseEntity<Produto> novoprodutoBody(@RequestBody @Validated Produto prod ) {
 		if(produtosrepository.save(prod) == null) 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null );
 		return ResponseEntity.status(HttpStatus.CREATED).body(prod) ;
 	}
 	
 	@PutMapping("/")
-	public ResponseEntity<Produto> atualizaProduto(@RequestBody  Produto produto) {
+	public ResponseEntity<Produto> atualizaProduto(@RequestBody @Validated Produto produto) {
 		if(produtosrepository.save(produto) == null)
 			ResponseEntity.badRequest();
 		return ResponseEntity.status(HttpStatus.OK).body(produto);
@@ -69,16 +71,18 @@ public class ProdutoController {
 	
 	@PostMapping("/produtos")
 	@Operation(summary="Inserir cadastro via variavel no path")
-	public List<Produto> novoprodutos(@RequestBody Produto...produto) {
-		List<Produto> prods = Arrays.asList(produto);
+	public List<Produto> novoprodutos(@RequestBody @Validated ProdutoDTO...produto) {
+			List<ProdutoDTO> prods = Arrays.asList(produto);
+			
+			return  prods
+					.stream()
+					.map(p ->{
+							Produto novoproduto = new Produto(p.getDescricao(),new BigDecimal(0.0));
+							produtosrepository.save(novoproduto);
+					 		return  novoproduto;})
+					.collect(ArrayList::new, ArrayList::add,
+		                ArrayList::addAll);
 	
-	return  prods
-			.stream()
-			.map(p ->{
-					produtosrepository.save(p);
-			 		return  p;})
-			.collect(ArrayList::new, ArrayList::add,
-                ArrayList::addAll);
 	}
 		
 	

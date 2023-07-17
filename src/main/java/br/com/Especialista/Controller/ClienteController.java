@@ -8,6 +8,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +57,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/inserir")
-	public ResponseEntity<Cliente> inserirClienteBody(@RequestBody Cliente cli){
+	public ResponseEntity<Cliente> inserirClienteBody(@RequestBody @Validated Cliente cli){
 			if(clienterepository.save(cli) == null)
 				ResponseEntity.badRequest();
 		return ResponseEntity.status(HttpStatus.OK).body(cli);

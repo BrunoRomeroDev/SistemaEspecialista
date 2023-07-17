@@ -5,17 +5,37 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
+		<version>3.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.Especialista</groupId>
 	<artifactId>Especialista</artifactId>
-	<version>0.0.1-AGEM</version>
+	<version>0.0.1-expert</version>
 	<name>Especialista</name>
 	<description>Sistemas do Especialista</description>
+	<packaging>${project.packaging}</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>	
+			</activation>
+				<id>dev</id>
+				<properties>
+					<project.packaging>jar</project.packaging>
+					<tomcat.scope>compile</tomcat.scope>
+				</properties>
+		</profile>
+		<profile>
+				<id>prod</id>
+				<properties>
+					<project.packaging>war</project.packaging>
+					<tomcat.scope>provide</tomcat.scope>
+				</properties>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,7 +53,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -64,13 +83,29 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.0.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>0.9.1</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -87,5 +122,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
