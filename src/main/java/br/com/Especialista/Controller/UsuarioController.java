@@ -1,5 +1,6 @@
 package br.com.Especialista.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,16 +19,18 @@ import br.com.Especialista.Exception.SenhaInvalidaException;
 import br.com.Especialista.Services.JwtService;
 import br.com.Especialista.Services.UsuarioService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class UsuarioController {
 	
-    private final UsuarioService usuarioService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+	@Autowired
+    private  UsuarioService usuarioService;
+	
+	private  PasswordEncoder passwordEncoder;
+	@Autowired
+	private  JwtService jwtService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

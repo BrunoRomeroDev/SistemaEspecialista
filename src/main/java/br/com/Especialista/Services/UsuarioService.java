@@ -17,7 +17,6 @@ import jakarta.transaction.Transactional;
 public class UsuarioService implements UserDetailsService {
 
 	
-	 	@Autowired
 	    private PasswordEncoder encoder ;
 
 	    @Autowired
