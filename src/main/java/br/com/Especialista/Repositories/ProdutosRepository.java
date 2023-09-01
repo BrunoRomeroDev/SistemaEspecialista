@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import br.com.Especialista.Entities.Produto;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -24,8 +24,8 @@ public interface ProdutosRepository extends JpaRepository<Produto,Integer>{
 	@Query("select c from Produto c where upper(c.descricao) like upper(?1)")
 	List<Produto> findByDescricaoLike(String descricao, Sort sort);
 	
-//	@Query("Select c from Produto c where upper(c.nome) like upper(?1)")
-//	Page<Produto> findByDescricaoLike(String nome, Pageable pageable);
+	@Query("Select c from Produto c where upper(c.descricao) like upper(?1)")
+	Page<Produto> findByDescricaoLike(String descricao, Pageable pageable);
 	
 	List<Produto> findByDescricaoStartingWith(String descricao);
 	
@@ -43,7 +43,9 @@ public interface ProdutosRepository extends JpaRepository<Produto,Integer>{
 	
 	List<Produto> findByPrecoLessThanAndDescricaoLike(BigDecimal preco, String descricao);
 
-	Iterable<Order> findAll(Specification<Produto> spec);
+	List<Produto> findAll(Specification<Produto> spec);
 
+	@Query(value = "Select * from Produto prod where prod.descricao like :descricao",nativeQuery = true)
+	List<Produto> buscaPorDescricao(@Param("descricao") String descricao);
 		
 }

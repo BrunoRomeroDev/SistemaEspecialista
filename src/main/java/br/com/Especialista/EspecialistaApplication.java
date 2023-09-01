@@ -18,7 +18,24 @@ public class EspecialistaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("-------Filtr por preco----------");
+		produtoservice.listarProdutosPorPreco();
+		System.out.println("--------FIltr por descricao---------");
+		produtoservice.listarProdutoPorDescricao();
+		System.out.println("----------Filtra por descricao - Ordenado-------");
+		produtoservice.listarProdutoPorDescricaoOrdenado();
+		System.out.println("-------Filtra por descricao - paginado----------");
+		produtoservice.listarProdutoPorDescricaoPaginado();
+		System.out.println("--------Inicia com --------");
+		produtoservice.listaProdutoIniciaCom();
+		System.out.println("----------termina com-------");
+		produtoservice.listaProdutoTerminaCom();
+		System.out.println("--------Filtra por descricao - Specification---------");
 		produtoservice.listarProdutosBydescricaoSpec();
+		System.out.println("--------Produto maior que - Specification---------");
+		produtoservice.listarProdutosMaiorQue();
+		System.out.println("--------------Native query------------");
+		produtoservice.buscaPorDescricao();
 		
 	}
 	
