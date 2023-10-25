@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.Especialista.Entities.Cliente;
+import br.com.Especialista.Entities.Endereco;
+import br.com.Especialista.Entities.EnderecoDTO;
+import br.com.Especialista.Feign.CepFeign;
 import br.com.Especialista.Repositories.ClientesRepository;
+import br.com.Especialista.Repositories.EnderecoRepository;
 
 @RestController
 @RequestMapping("/especialista/cliente")
@@ -27,6 +31,11 @@ public class ClienteController {
 	
 	@Autowired
 	private ClientesRepository clienterepository;
+	
+	@Autowired
+	private CepFeign cepfeign;
+	@Autowired
+	private EnderecoRepository enderecorepository;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente>  buscarCliente(@PathVariable Integer id) {
@@ -58,7 +67,9 @@ public class ClienteController {
 	
 	@PostMapping("/inserir")
 	public ResponseEntity<Cliente> inserirClienteBody(@RequestBody @Validated Cliente cli){
-			if(clienterepository.save(cli) == null)
+		EnderecoDTO end = cepfeign.getEnderecoPorCep(cli.getCep().getCep());
+		cli.setCep(enderecorepository.save(new Endereco(end)));
+		if(clienterepository.save(cli) == null)
 				ResponseEntity.badRequest();
 		return ResponseEntity.status(HttpStatus.OK).body(cli);
 	}

@@ -8,11 +8,14 @@
 				<constraints primaryKey="true" />
 			</column>
 			<column name="nome" type="varchar(100)"></column>
+			<column name="cep" type="int"></column>
 		</createTable>
+		
 		<createTable tableName="Produto">
 			<column name="id" type="int"></column>
 			<column name="descricao" type="varchar(100)"></column>
 			<column name="precoUnitario" type="numeric(20,2)"></column>
+			
 		</createTable>
 		<createTable tableName="Pedido">
 			<column name="id" type="int"></column>
@@ -133,5 +136,22 @@
 			<column name="admin" type="boolean"></column>
 		</createTable>
 	</changeSet>
+ 	<changeSet id="Tabela endereco" author="Romero">
+		<createTable tableName="Endereco">
+			<column name="id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="cep" type="int"></column>
+			<column name="uf" type="varchar(2)"></column>
+			<column name="localidade" type="varchar(30)"></column>
+			<column name="bairro" type="varchar(50)"></column>
+			<column name="logradouro" type="varchar(250)"></column>
+			<column name="complemento" type="varchar(250)"></column>
+		</createTable>
+	</changeSet>
 
+		<changeSet id="AutoincrementEndereco" author="PMSVFULL">		
+		<addAutoIncrement columnDataType="int"	columnName="id"	tableName="Endereco"/>
+	</changeSet>
+	
 </databaseChangeLog>

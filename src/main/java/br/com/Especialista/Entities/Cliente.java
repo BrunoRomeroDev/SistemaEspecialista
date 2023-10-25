@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -38,10 +40,16 @@ public class Cliente {
 	@Column(name="endereco")
 	private String endereco;
 	
-	@Size(max = 11)
+//	@Size(max = 11)
 	@Column(name="cpf")
-	@NotNull(message="{campo.cpf}")
+//	@NotNull(message="{campo.cpf}")
 	private Integer CPF;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="cep")
+	@NotNull(message="{campo.cep}")
+	private Endereco cep;
 	
 
 	public Cliente(String nome) {

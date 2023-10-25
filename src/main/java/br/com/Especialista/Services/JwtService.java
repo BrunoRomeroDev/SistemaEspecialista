@@ -14,11 +14,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-
-
 @Service
 public class JwtService {
-
 	
 	@Value("${security.jwt.expiracao")
 	private String expiracao;
